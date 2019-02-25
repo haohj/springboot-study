@@ -2,6 +2,11 @@ package com.hao.chapter10.service.impl;
 
 import com.hao.chapter10.entity.User;
 import com.hao.chapter10.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -17,18 +22,28 @@ public class UserServiceImpl implements UserService {
         DATABASES.put(3L, new User(3L, "u3", "p3"));
     }
 
+    private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
+
+    @CachePut(value = "user",key = "#user.id")
     @Override
     public User saveOrUpdate(User user) {
-        return null;
+        DATABASES.put(user.getId(),user);
+        log.info("进入 saveOrUpdate 方法");
+        return user;
     }
 
+    @Cacheable(value = "user",key = "#id")
     @Override
     public User get(Long id) {
-        return null;
+        // TODO 我们就假设它是从数据库读取出来的
+        log.info("进入 get 方法");
+        return DATABASES.get(id);
     }
 
+    @CacheEvict(value = "user",key = "#id")
     @Override
-    public void delet(Long id) {
-
+    public void delete(Long id) {
+        DATABASES.remove(id);
+        log.info("进入 delete 方法");
     }
 }

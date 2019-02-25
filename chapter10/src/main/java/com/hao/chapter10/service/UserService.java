@@ -23,5 +23,5 @@ public interface UserService {
      *
      * @param id key值
      */
-    void delet(Long id);
+    void delete(Long id);
 }
