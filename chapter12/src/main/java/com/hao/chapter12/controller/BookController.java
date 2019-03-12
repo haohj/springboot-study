@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2019年3月5日17:13:21
  */
 @RestController
-@RequestMapping(value = "/books")
+@RequestMapping("/books")
 public class BookController {
     private RabbitTemplate rabbitTemplate;
 

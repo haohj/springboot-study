@@ -11,6 +11,9 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
+/**
+ * BOOK_QUEUE 消费者
+ */
 @Component
 public class BookHandler {
     private static final Logger log = LoggerFactory.getLogger(BookHandler.class);
